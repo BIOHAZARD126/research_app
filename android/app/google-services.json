@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "861472693574",
+    "project_id": "research-app-1061e",
+    "storage_bucket": "research-app-1061e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861472693574:android:3dc9237c3d5b34f3491947",
+        "android_client_info": {
+          "package_name": "com.princursion.sophrodom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861472693574-cvn7onod9j26bh2ou2k9mut2a5f2pt0o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.princursion.sophrodom",
+            "certificate_hash": "fe50a1e28786c097afe8c3f0d0ff3f445c70b301"
+          }
+        },
+        {
+          "client_id": "861472693574-8kojpga5no3anct054iecnljpj472d3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP-qpuJ1xRwVA9d8UDQh4-TRGdiwo1B9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861472693574-8kojpga5no3anct054iecnljpj472d3n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
