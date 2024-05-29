@@ -1,0 +1,39 @@
+name: Build iOS
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest  # Use a macOS runner
+
+    steps:
+    - uses: actions/checkout@v2  # Checkout the repository
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.7'  # Specify Ruby version
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 'stable'  # Specify Flutter version
+
+    - name: Install CocoaPods
+      run: sudo gem install cocoapods  # Install CocoaPods
+
+    - name: Install dependencies
+      run: flutter pub get  # Install Flutter dependencies
+
+    - name: Build iOS
+      run: flutter build ios --release --no-codesign  # Build the iOS app
+
+    - name: Archive and upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ios-release
+        path: build/ios/iphoneos/Runner.app  # Path to the build artifact
