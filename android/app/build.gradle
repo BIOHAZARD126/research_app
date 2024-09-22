@@ -1,7 +1,9 @@
+ext.kotlin_version = '1.8.10' // or a newer version if needed
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "com.google.gms.google-services" // Google Services plugin
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -23,10 +25,15 @@ if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
 
+def firebase_cpp_sdk_dir = localProperties.getProperty("firebase_cpp_sdk_dir")
+if (firebase_cpp_sdk_dir == null) {
+    firebase_cpp_sdk_dir = "$rootDir/../firebase_cpp_sdk"
+}
+
 android {
     namespace = "com.example.research_app"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 35
+    ndkVersion = "23.1.7779620"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -34,27 +41,38 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.research_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        minSdk = 21
+        targetSdk = 35
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
-        applicationId "com.princursion.sophrodom"
+        applicationId "com.aditya_mukherjee.sophrodom"
         resValue "string", "app_name", "Sophrodom"
+        externalNativeBuild {
+            cmake {
+                arguments "-DFIREBASE_CPP_SDK_DIR=$firebase_cpp_sdk_dir"
+            }
+        }
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
         }
     }
 }
 
-flutter {
-    source = "../.."
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:28.4.1')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
+
+apply plugin: 'com.google.gms.google-services' // Apply the Google Services plugin
